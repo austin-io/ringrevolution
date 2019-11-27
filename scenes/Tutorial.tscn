@@ -1,0 +1,180 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/Tutorial.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/RingSpritesAlpha.png" type="Texture" id=2]
+[ext_resource path="res://themes/default_theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/images/icons8-filled-circle-48.png" type="Texture" id=4]
+[ext_resource path="res://scripts/PlayButton.gd" type="Script" id=5]
+[ext_resource path="res://scenes/NextButton.gd" type="Script" id=6]
+[ext_resource path="res://assets/sounds/Rings.wav" type="AudioStream" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "JumpIn"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 359.999 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9, 1, 2.9, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 150, 0 ), Vector2( 150, 0 ), Vector2( 250, 0 ), Vector2( 250, 0 ), Vector2( 150, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../SwipeSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 900, 400 ), Vector2( 900, 400 ), Vector2( 900, 200 ), Vector2( 900, 200 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../EnemySprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 720.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "JumpOut"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 150, 0 ), Vector2( 150, 0 ), Vector2( 50, 0 ), Vector2( 50, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../SwipeSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 900, 200 ), Vector2( 900, 200 ), Vector2( 900, 400 ), Vector2( 900, 400 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 180.0, 359.999 ]
+}
+
+[node name="Tutorial" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0941176, 0.164706, 0.207843, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Control")
+autoplay = "JumpOut"
+anims/JumpIn = SubResource( 1 )
+anims/JumpOut = SubResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+rect_rotation = 359.999
+
+[node name="Sprite" type="Sprite" parent="Control"]
+position = Vector2( 50, 0 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 256, 256 )
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -80.0
+theme = ExtResource( 3 )
+text = "Swipe up to jump towards the outer Rings"
+align = 1
+
+[node name="SwipeSprite" type="Sprite" parent="."]
+modulate = Color( 0.976471, 0.976471, 0.976471, 1 )
+position = Vector2( 900, 400 )
+texture = ExtResource( 4 )
+
+[node name="EnemySprite" type="Sprite" parent="."]
+position = Vector2( 370, 280 )
+rotation = 3.81345
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 256, 0, 294, 256 )
+
+[node name="PlayButton" type="Button" parent="."]
+visible = false
+margin_left = 880.0
+margin_top = 520.0
+margin_right = 970.0
+margin_bottom = 564.0
+theme = ExtResource( 3 )
+text = "Play"
+script = ExtResource( 5 )
+
+[node name="NextButton" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
+
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="NextButton" to="NextButton" method="_on_NextButton_pressed"]

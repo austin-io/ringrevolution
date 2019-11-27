@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Lazy-Day-Background-music.ogg-5ef6489e6085be1ddce88625f57cc027.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/Lazy-Day-Background-music.ogg"
+dest_files=[ "res://.import/Lazy-Day-Background-music.ogg-5ef6489e6085be1ddce88625f57cc027.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

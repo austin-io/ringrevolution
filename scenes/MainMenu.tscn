@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://themes/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Montserrat/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/images/baseline_play_circle_outline_white_48dp.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/baseline_play_circle_filled_white_48dp.png" type="Texture" id=5]
+[ext_resource path="res://scripts/TextureButton.gd" type="Script" id=6]
+[ext_resource path="res://scripts/PlayButton.gd" type="Script" id=7]
+[ext_resource path="res://scenes/TutorialButton.gd" type="Script" id=8]
+[ext_resource path="res://scenes/SoundButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/sounds/Lazy-Day-Background-music.ogg" type="AudioStream" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Colors"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.305882 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+editor/display_folded = true
+modulate = Color( 1, 1, 1, 0.421906 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -248.0
+margin_top = -128.0
+margin_right = 248.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+margin_top = 10.0
+margin_right = 496.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Ring Revolution"
+align = 1
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer"]
+margin_left = 200.0
+margin_top = 85.0
+margin_right = 296.0
+margin_bottom = 207.0
+size_flags_horizontal = 4
+size_flags_vertical = 15
+size_flags_stretch_ratio = 1.5
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+script = ExtResource( 6 )
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+visible = false
+margin_top = 164.0
+margin_right = 496.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Play"
+script = ExtResource( 7 )
+
+[node name="TutorialButton" type="Button" parent="VBoxContainer"]
+margin_top = 211.0
+margin_right = 496.0
+margin_bottom = 255.0
+text = "How to Play"
+script = ExtResource( 8 )
+
+[node name="SoundButton" parent="." instance=ExtResource( 9 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -5.0
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../VBoxContainer")
+autoplay = "Colors"
+anims/Colors = SubResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+text = "© 2019 Toyboat Games"
+align = 1
+
+[connection signal="pressed" from="VBoxContainer/TextureButton" to="VBoxContainer/TextureButton" method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="VBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/TutorialButton" to="VBoxContainer/TutorialButton" method="_on_TutorialButton_pressed"]
